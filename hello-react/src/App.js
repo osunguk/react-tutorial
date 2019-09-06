@@ -4,19 +4,41 @@ import MyName from './MyName';
 import MyName2 from './MyName2';
 import Counter from './Counter';
 import PhoneForm from './component/PhoneForm'
+import PhoneInfo from './component/PhoneInfo';
+import PhoneInfoList from './component/PhoneInfoList';
 
 class App extends Component {
-  handleCreate = (data) => {
-    console.log(data);
-  }
+  
+  id = 2
+    state = {
+      information: [
+        {
+          id: 0,
+          name: '홍길동',
+          phone: '010-0000-0000'
+        },
+        {
+          id: 1,
+          name: '임꺽정',
+          phone: '010-1234-1234'
+        }
+      ]
+    }
+    handleCreate = (data) => {
+      const { information } = this.state;
+      this.setState({
+        information: information.concat({ id: this.id++, ...data})
+      })
+    }
   render() { 
-    const value = 1;
+    const value = 1
     const style = {
       backgroundColor: 'black',
       padding: '16px',
       color: 'white',
       fontSize: '12px'
     };
+    const { information } = this.state;
     return (
       <div>
         <div className='조건문 테스트'>
@@ -54,7 +76,16 @@ class App extends Component {
           <PhoneForm
             onCreate={this.handleCreate}  
           ></PhoneForm>
+          {JSON.stringify(information)}
         </div>
+        <div>
+          <PhoneInfo
+            onCreate={this.handleCreate}>
+          </PhoneInfo>
+          <PhoneInfoList data={this.state.information}>
+          </PhoneInfoList>
+        </div>
+
       </div>
     );
   }
