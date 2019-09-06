@@ -3,9 +3,13 @@ import './App.css'
 import MyName from './MyName';
 import MyName2 from './MyName2';
 import Counter from './Counter';
+import PhoneForm from './component/PhoneForm'
 
 class App extends Component {
-  render() {
+  handleCreate = (data) => {
+    console.log(data);
+  }
+  render() { 
     const value = 1;
     const style = {
       backgroundColor: 'black',
@@ -14,7 +18,7 @@ class App extends Component {
       fontSize: '12px'
     };
     return (
-      <fragment>
+      <div>
         <div className='조건문 테스트'>
           {
             (() => {
@@ -46,7 +50,12 @@ class App extends Component {
         <div className='Counter 컴포넌트'>
           <Counter></Counter>
         </div>
-      </fragment>
+        <div className='input 구현'>
+          <PhoneForm
+            onCreate={this.handleCreate}  
+          ></PhoneForm>
+        </div>
+      </div>
     );
   }
 }
