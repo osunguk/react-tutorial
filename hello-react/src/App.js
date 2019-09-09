@@ -30,6 +30,24 @@ class App extends Component {
         information: information.concat({ id: this.id++, ...data})
       })
     }
+
+    handleRemove = (id) => {
+      const {information } = this.state;
+      this.setState({
+        information : information.filter(info => info.id !== id)
+      })
+    }
+
+    handleUpdate = (id, data) => {
+      const {information} = this.state;
+      this.setState({
+        information: information.map(
+          info => id === info.id
+            ? { ...info, ...data}
+            : info
+        )
+      })
+    }
   render() { 
     const value = 1
     const style = {
@@ -67,7 +85,7 @@ class App extends Component {
           <MyName></MyName>
         </div>
         <div className='함수형 컴포넌트'>
-          <MyName2></MyName2>
+          <MyName2 name='정상수'></MyName2>
         </div>
         <div className='Counter 컴포넌트'>
           <Counter></Counter>
@@ -82,7 +100,11 @@ class App extends Component {
           <PhoneInfo
             onCreate={this.handleCreate}>
           </PhoneInfo>
-          <PhoneInfoList data={this.state.information}>
+          <PhoneInfoList  
+            data={this.state.information}
+            onRemove={this.handleRemove}
+            onUpdate={this.handleUpdate}
+          >
           </PhoneInfoList>
         </div>
 
